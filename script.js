@@ -1,56 +1,52 @@
 const cursor=document.querySelector('.cursor');
-if(cursor){
-  window.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
-}
-const filters=document.querySelectorAll('.filter');
+if(cursor)window.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+
+const filterButtons=document.querySelectorAll('.filters button');
 const projects=document.querySelectorAll('.project');
-filters.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    filters.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const value=btn.dataset.filter;
-    projects.forEach(p=>{
-      p.style.display=(value==='all'||p.dataset.category===value)?'block':'none';
-    });
-  });
+function applyFilter(filter){
+  filterButtons.forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));
+  projects.forEach(p=>p.style.display=(filter==='all'||p.dataset.category===filter)?'block':'none');
+}
+filterButtons.forEach(button=>button.addEventListener('click',()=>applyFilter(button.dataset.filter)));
+
+document.querySelectorAll('[data-filter-link]').forEach(link=>{
+  link.addEventListener('click',()=>applyFilter(link.dataset.filterLink));
 });
 
 const modal=document.getElementById('modal');
-const video=document.getElementById('modal-video');
-const title=document.getElementById('modal-title');
-const type=document.getElementById('modal-type');
-const description=document.getElementById('modal-description');
-const closeModal=()=>{
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden','true');
-  video.src='';
-  document.body.style.overflow='';
-};
+const modalTitle=document.getElementById('modal-title');
+const modalType=document.getElementById('modal-type');
+const modalDescription=document.getElementById('modal-description');
+const modalVideo=document.getElementById('modal-video');
+
 projects.forEach(project=>{
   project.addEventListener('click',()=>{
-    title.textContent=project.dataset.title;
-    type.textContent=project.dataset.type;
-    description.textContent=project.dataset.description;
-    video.src=project.dataset.video + (project.dataset.video.includes('?')?'&':'?') + 'autoplay=1';
+    modalTitle.textContent=project.dataset.title;
+    modalType.textContent=project.dataset.type;
+    modalDescription.textContent=project.dataset.description;
+    const url=project.dataset.video;
+    modalVideo.innerHTML=url
+      ? `<iframe src="${url}" title="${project.dataset.title}" allow="autoplay; fullscreen" allowfullscreen></iframe>`
+      : `<div style="height:100%;display:grid;place-items:center;color:#666;font:10px 'DM Mono',monospace;letter-spacing:.15em">ADD YOUR VIDEO URL</div>`;
     modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
   });
 });
-document.querySelector('.modal-close').addEventListener('click',closeModal);
+function closeModal(){modal.classList.remove('open');modalVideo.innerHTML='';document.body.style.overflow=''}
+document.querySelector('.close').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-// Small reveal effect
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.animate(
-        [{opacity:0,transform:'translateY(24px)'},{opacity:1,transform:'translateY(0)'}],
-        {duration:700,easing:'cubic-bezier(.2,.7,.2,1)',fill:'forwards'}
-      );
-      observer.unobserve(entry.target);
+const reveal=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      reveal.unobserve(e.target);
     }
   });
 },{threshold:.08});
-document.querySelectorAll('.project,.capability-list>div,.about-layout').forEach(el=>observer.observe(el));
+document.querySelectorAll('.project,.about-grid,.contact h2').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(25px)';el.style.transition='opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)';
+  reveal.observe(el);
+});

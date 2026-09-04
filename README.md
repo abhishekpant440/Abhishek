@@ -1,31 +1,26 @@
 # Abhishek Pant — Video Editor Portfolio
 
-A clean, typography-led portfolio for GitHub Pages.
+This version is built to closely match the supplied reference:
+- black cinematic hero
+- your own hero photo
+- oversized typography
+- red accent
+- right-side editing categories
+- bottom contact strip
+- clean editorial work section
+- Motion / Documentary / Short Form / Commercial filtering
+- responsive mobile layout
 
-## 1. Edit your details
-Open `index.html` and replace:
-- `your@email.com`
-- Project names/descriptions
-- `VIDEO_ID_1` ... `VIDEO_ID_8`
-- About text
-- Tools / experience
+## Replace the demo projects
+Each project in `index.html` has a `data-video=""` attribute.
+Put a YouTube embed URL there, for example:
+`data-video="https://www.youtube.com/embed/YOUR_VIDEO_ID"`
 
-## 2. Add your real project media
-The demo uses CSS-generated visual placeholders so the site works immediately.
-For real work, replace each `.thumb` with your own `<img>` or video thumbnail.
+For project thumbnails, replace the CSS `.media-X:before` backgrounds with your own images/videos when ready.
 
-Example:
-```html
-<div class="thumb">
-  <img src="assets/project-01.jpg" alt="Project title">
-  ...
-</div>
-```
+## GitHub Pages
+Upload the whole folder to a repository, then:
+Settings → Pages → Deploy from branch → `main` → `/root`
 
-## 3. Put it on GitHub Pages
-1. Create a GitHub repository named `YOURUSERNAME.github.io`
-2. Upload `index.html`, `style.css`, `script.js`, and your `assets` folder.
-3. GitHub → Settings → Pages → Deploy from branch → `main` / root.
-4. Open `https://YOURUSERNAME.github.io/`
-
-No build step or framework is required.
+Your hero image is already included at:
+`assets/main-hero.png`
