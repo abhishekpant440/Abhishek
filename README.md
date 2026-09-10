@@ -1,26 +1,18 @@
 # Abhishek Pant — Video Editor Portfolio
 
-This version is built to closely match the supplied reference:
-- black cinematic hero
-- your own hero photo
-- oversized typography
-- red accent
-- right-side editing categories
-- bottom contact strip
-- clean editorial work section
-- Motion / Documentary / Short Form / Commercial filtering
-- responsive mobile layout
+A typography-first, cinematic portfolio site inspired by the reference editorial style discussed in the project.
 
-## Replace the demo projects
-Each project in `index.html` has a `data-video=""` attribute.
-Put a YouTube embed URL there, for example:
-`data-video="https://www.youtube.com/embed/YOUR_VIDEO_ID"`
+## Included work
+1. Who Cheats More? GEN Z vs BOOMERS — full video
+2. Is Being ‘GAY’ Brainwashing or Biology? — starts at 7:35
+3. What America actually did to Michael Jackson? — full video
+4. The Crazy Case Of Mamata Didi (Unfiltered 🫣) — starts at 11:31
 
-For project thumbnails, replace the CSS `.media-X:before` backgrounds with your own images/videos when ready.
+## Files
+- `index.html` — page structure and project data
+- `style.css` — visual design and responsive layout
+- `script.js` — filters and YouTube modal playback
+- `assets/main-hero.png` — hero image
 
 ## GitHub Pages
-Upload the whole folder to a repository, then:
-Settings → Pages → Deploy from branch → `main` → `/root`
-
-Your hero image is already included at:
-`assets/main-hero.png`
+Upload the folder contents to a GitHub repository and enable GitHub Pages from the repository's Pages settings.
